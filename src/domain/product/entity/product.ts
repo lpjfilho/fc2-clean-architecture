@@ -1,6 +1,7 @@
 import ProductInterface from "./product.interface";
 import Entity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
+import ProductYupFactory from "../factory/product.yup.factory";
 
 export default class Product extends Entity implements ProductInterface {
     private _name: string
@@ -21,24 +22,7 @@ export default class Product extends Entity implements ProductInterface {
     }
 
     validate() {
-        if (this._id.trim().length === 0) {
-            this.notification.add({
-                context: this.constructor.name,
-                message: 'Id is required',
-            })
-        }
-        if (this._name.trim().length === 0) {
-            this.notification.add({
-                context: this.constructor.name,
-                message: 'Name is required',
-            })
-        }
-        if (this._price <= 0) {
-            this.notification.add({
-                context: this.constructor.name,
-                message: 'Price must be greater than zero',
-            })
-        }
+        ProductYupFactory.create().validate(this)
     }
 
     get id(): string {
