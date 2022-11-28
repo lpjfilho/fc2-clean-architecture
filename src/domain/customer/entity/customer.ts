@@ -17,8 +17,6 @@ export default class Customer extends Entity {
 
         this.validate()
 
-        console.log(this.notification.getErrors())
-
         if (this.notification.hasErrors()) {
             throw new NotificationError(this.notification.getErrors())
         }

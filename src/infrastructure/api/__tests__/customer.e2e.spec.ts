@@ -90,4 +90,31 @@ describe('E2E test for customer', () => {
         expect(customer2.name).toEqual('Jane')
         expect(customer2.address.zip).toEqual('1234')
     })
+
+    it('should list all customers in xml', async () => {
+        const response = await request(app)
+        .post('/customer')
+        .send({
+            name: 'John',
+            address: {
+                street: 'Street',
+                number: 1,
+                zip: '123',
+                city: 'SP',
+                country: 'BR',
+            }
+        })
+
+        expect(response.status).toBe(200)
+
+        const responseXml = await request(app)
+        .get('/customer')
+        .set('Accept', 'application/xml')
+        .send()
+
+        expect(responseXml.status).toBe(200)
+        expect(responseXml.text).toContain('<?xml version="1.0" encoding="UTF-8"?>')
+        expect(responseXml.text).toContain('<customers>')
+        expect(responseXml.text).toContain('<customer>')
+    })
 })

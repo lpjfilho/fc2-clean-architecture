@@ -2,8 +2,6 @@ import {Sequelize} from "sequelize-typescript";
 import ProductModel from "../../../infrastructure/product/repository/sequelize/product.model";
 import ProductRepository from "../../../infrastructure/product/repository/sequelize/product.repository";
 import CreateProductUseCase from "../create/create.product.usecase";
-import ListProductUseCase from "./list.product.usecase";
-import {OutputListProductDto} from "./list.product.dto";
 import UpdateProductUseCase from "./update.product.usecase";
 
 
